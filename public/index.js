@@ -29,14 +29,17 @@ const kittenImg = async () => {
     console.log(await catpic());
     const randomCat = await catpic();
     // create a new div element
-    const newElement = document.createElement("img");
-
+    const imgElement = document.createElement("img");
+    const divElement = document.createElement("div");
+    divElement.setAttribute("id", "cat_container");
     // set the h1's id
-    newElement.setAttribute("id", "random_cat");
-    newElement.setAttribute("src", randomCat);
+    imgElement.setAttribute("id", "random_cat");
+    imgElement.setAttribute("src", randomCat);
 
     // add the newly created element and its content into the DOM
-    document.body.appendChild(newElement);
+    divElement.appendChild(imgElement);
+    document.body.appendChild(divElement);
+
 }
 
 window.onload = async () => {
