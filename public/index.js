@@ -16,13 +16,15 @@ const kittenTitle = () => {
     newElement.setAttribute("id", "kitten_title");
 
     // and give it some content
-    const newContent = document.createTextNode("Kitten Pic");
+    const newContent = document.createTextNode("Kitten Pic.meow");
 
     // add the text node to the newly created div
     newElement.appendChild(newContent);
 
     // add the newly created element and its content into the DOM
     document.body.appendChild(newElement);
+
+    // document.body.appendChild((document.createElement('h1').setAttribute('id', 'kitten_title')).appendChild(document.createTextNote("Kitten Pic")));
 }
 
 const kittenImg = async () => {
@@ -42,7 +44,14 @@ const kittenImg = async () => {
 
 }
 
+const setBg = () => {
+    const randomColor = Math.floor(Math.random()*16777215).toString(16);
+    document.body.style.backgroundColor = "#" + randomColor;
+    color.innerHTML = "#" + randomColor;
+}
+
 window.onload = async () => {
     kittenTitle();
     await kittenImg();
+    setBg();
 }
