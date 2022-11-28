@@ -59,6 +59,7 @@ const createScoreContainer = () => {
     scoreDisplay.appendChild(score);
 
     const buttonContainer = document.createElement('div');
+    buttonContainer.id = 'vote_buttons';
 
     const updootButton = document.createElement('button');
     updootButton.id = 'updoot';
@@ -89,6 +90,16 @@ const vote = (event) => {
 }
 
 const createCommentContainer = () => {
+    const fieldsetSeparate = document.createElement('fieldset');
+    fieldsetSeparate.className = 'fieldset_separator';
+    fieldsetSeparate.style.borderBottom = 'none';
+    fieldsetSeparate.style.borderLeft = 'none';
+    fieldsetSeparate.style.borderRight = 'none';
+    fieldsetSeparate.style.borderTop = '4px solid rgba(0, 0, 0, .5)';
+    const fsLegend = document.createElement('legend');
+    fsLegend.innerText = "USER COMMENTS"
+    fieldsetSeparate.appendChild(fsLegend);
+
     const commentForm = document.createElement('div'); // <--- change 'div' to 'form' when you're ready for Local Storage :)
     commentForm.className = 'comment_form';
 
@@ -96,7 +107,8 @@ const createCommentContainer = () => {
     userCommentContainer.className = 'user_comment_container';
 
     const label = document.createElement('label');
-    label.innerText = "comments: ";
+    label.innerText = "comment on dis!!: ";
+    label.style.fontFamily = "arial";
 
     const commentInput = document.createElement('input');
     commentInput.id = 'user_comment';
@@ -114,7 +126,7 @@ const createCommentContainer = () => {
 
     const submitButton = document.createElement('button');
     submitButton.id = 'submit_button';
-    submitButton.innerText = 'Submit :)';
+    submitButton.innerText = 'subbmit comment :)';
 
     commentForm.appendChild(userCommentContainer);
     commentForm.appendChild(submitButton);
@@ -122,9 +134,24 @@ const createCommentContainer = () => {
     const comments = document.createElement('div');
     comments.className = 'comments';
 
+    comments.appendChild(fieldsetSeparate);
+
     const container = document.querySelector('.container');
     container.appendChild(commentForm);
     container.appendChild(comments);
+}
+
+const submitComment = () => {
+    const commentsDiv = document.querySelector(".comments");
+    const commentInput = document.getElementById("user_comment");
+
+    if (commentInput.value) {
+        const comment = document.createElement('p');
+        comment.innerText = commentInput.value;
+        commentInput.value = '';
+
+        commentsDiv.appendChild(comment);
+    }
 }
 
 const fetchCat = async () => {
@@ -134,10 +161,8 @@ const fetchCat = async () => {
 
     document.querySelector('#catpic').src = url;
     document.querySelector('.score').innerText = '0'
-}
-
-const submitComment = () => {
-
+    const comments = document.querySelector('.comments');
+    while(comments.lastChild.nodeName != 'FIELDSET') comments.removeChild(comments.lastChild);
 }
 
 // const kittenTitle = () => {
@@ -187,7 +212,7 @@ window.onload = async () => {
     document.getElementById('new_cat_button').addEventListener('click', fetchCat);
     document.getElementById('updoot').addEventListener('click', e => vote(e));
     document.getElementById('downvote').addEventListener('click', e => vote(e));
-    document.getElementById('downvote').addEventListener('click', e => vote(e));
+    document.getElementById('submit_button').addEventListener('click', submitComment);
     // kittenTitle();
     // await kittenImg();
     // setBg();
